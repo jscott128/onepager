@@ -1,11 +1,324 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World!</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Grids in Action</title>
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <style>
+
+    /* General styles */
+    body {
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-image: url('./images/indiegroundblog_80sgrids_15.jpg.webp');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #00FF00; /* Neon green text */
+      text-align: center;
+    }
+
+    header h1, header p, .controls label {
+      color: #00FF00;
+      margin: 1em 0; text-align: center; 
+      padding-top: 1em; 
+      text-shadow: 0 0 10px black, 0 0 10px black, 0 0 10px black;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: normal;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+
+    header h2 {
+      font-size: 1rem;
+      font-weight: normal;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 1em 1em;
+      margin-top: 2em;
+      margin-bottom: 2em;
+      margin-left: 20px;
+      margin-right: 20px;
+      display: inline-block;
+      border-radius: 12px; 
+    }
+
+    /* Sliders section styling */
+    .sliders {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 3em;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-shadow: 0px 0px 10px black;
+    }
+
+    .controls label {
+      margin-bottom: 1em;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none; 
+      appearance: none; 
+      width: 200px;
+      height: 8px;
+      background-color: black;
+      border: 1px solid #00FF00;
+      border-radius: 4px;
+      outline: none;
+      cursor: grab;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none; 
+      width: 16px;
+      height: 16px;
+      background-color: #00FF00;
+      border: 2px solid black;
+      border-radius: 50%;
+      cursor: grab;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      background-color: #00FF00;
+      border: 2px solid black;
+      border-radius: 50%;
+      cursor: grab;
+    }
+
+    /* Grid container */
+    .grid-demo-container {
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 40px;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+
+    .grid-demo {
+      display: grid;
+      gap: 10px;
+      padding: 10px;      
+      border: 2px solid #00FF00;
+      background-color: black;
+      border-radius: 12px;
+      width: 100%;
+      position: relative;
+      min-width: 400px;
+      min-height: 200px;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+    }
+
+    .grid-item {
+      background-color: #00FF00;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Courier New', monospace;
+      font-size: 1.2rem;
+      transition: transform 0.2s, background-color 0.2s;
+      border: 2px solid #00FF00;
+    }
+
+    .grid-item:hover {
+      background-color: #00cc00;
+      transform: scale(1.1);
+    }
+
+    /* Resize handle */
+    .resize-handle {
+      width: 32px;
+      height: 32px;
+      background-color: black;
+      border-bottom-right-radius: 10px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      cursor: se-resize;
+    }
+
+    /* Responsive grid */
+    .responsive-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background-color: black;
+      border: 2px solid #00FF00;
+      border-radius: 12px;
+    }
+
+    @media (max-width: 400px) {
+      .responsive-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
 </head>
 <body>
-    Hello World!
+  <div class="container">
+    <header>
+      <h1>Responsive Grids in Action</h1>
+        <h2>
+        Use the controls below to re-size this grid <br> and start exploring the magic of CSS grids.
+      </h2>
+    </header>
+    <div class="sliders">
+      <div class="controls">
+        <label for="screen-width">Width:</label>
+        <input type="range" id="screen-width" min="300" max="1200" value="800">
+      </div>
+      <div class="controls">
+        <label for="screen-height">Height:</label>
+        <input type="range" id="screen-height" min="200" max="800" value="400">
+      </div>
+    </div>
+
+    <!-- First Grid (resizable via controls) -->
+    <div class="grid-demo-container">
+      <div class="grid-demo" id="grid-container-1">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+      </div>
+    </div>
+
+    <header>
+      <h2>
+      The next grid can be re-sized using the handle <br> at its bottom right-hand corner.
+      </h2>
+    </header>
+
+    <!-- Second Grid (resizable via resize handle) -->
+    <div class="grid-demo-container">
+      <div class="grid-demo" id="grid-container-2">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+        <!-- Resize handle for second grid -->
+        <div class="resize-handle" id="resize-handle-2"></div>
+      </div>
+    </div>
+
+    <!-- Text explaining the responsive grid -->
+    <header>
+      <h2>
+        This grid responds to the size of your viewport. <br> Try changing your browser window size to see how it works.
+      </h2>
+    </header>
+
+    <!-- Container for the responsive grid -->
+    <div class="grid-demo-container">
+      <div class="grid-demo responsive-grid">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+  const widthSlider = document.getElementById('screen-width');
+const heightSlider = document.getElementById('screen-height');
+const gridContainer1 = document.getElementById('grid-container-1');
+const gridContainer2 = document.getElementById('grid-container-2');
+const resizeHandle2 = document.getElementById('resize-handle-2');
+
+let isResizing2 = false;
+
+// Update grid dimensions dynamically via sliders (First grid only)
+function updateGridDimensions() {
+  const width = widthSlider.value;
+  const height = heightSlider.value;
+
+  gridContainer1.style.width = `${width}px`;
+  gridContainer1.style.height = `${height}px`;
+}
+
+// Initialize and update on slider change
+[widthSlider, heightSlider].forEach(slider => slider.addEventListener('input', updateGridDimensions));
+updateGridDimensions();
+
+// Enable resizing of the second grid container via the resize handle
+resizeHandle2.addEventListener('mousedown', (e) => {
+  isResizing2 = true;
+  document.body.style.cursor = 'se-resize';
+});
+
+// Handle resizing of the second grid on mousemove
+document.addEventListener('mousemove', (e) => {
+  if (isResizing2) {
+    const newWidth = e.clientX - gridContainer2.getBoundingClientRect().left;
+    const newHeight = e.clientY - gridContainer2.getBoundingClientRect().top;
+
+    // Ensure the second grid doesn't get smaller than the minimum size
+    const minWidth = 400; 
+    const minHeight = 200;
+    gridContainer2.style.width = `${Math.max(newWidth, minWidth)}px`;
+    gridContainer2.style.height = `${Math.max(newHeight, minHeight)}px`;
+  }
+});
+
+document.addEventListener('mouseup', () => {
+  isResizing2 = false;
+  document.body.style.cursor = 'default';
+});
+
+// Implement grabbing cursor for the sliders
+[widthSlider, heightSlider].forEach(slider => {
+  slider.addEventListener('mousedown', () => {
+    // Ensure the cursor switches immediately to 'grabbing' on mousedown
+    document.body.style.cursor = 'grabbing';
+    slider.style.cursor = 'grabbing';  // Also target the slider directly to override thumb state
+  });
+
+  slider.addEventListener('mouseup', () => {
+    // Revert to 'grab' once mouse is released
+    document.body.style.cursor = 'grab';
+    slider.style.cursor = 'grab';  // Revert the cursor back for the slider
+  });
+
+  // Prevent the cursor from resetting back on slider thumb hover
+  slider.addEventListener('mouseenter', () => {
+    if (slider.style.cursor === 'grabbing') {
+      slider.style.cursor = 'grabbing'; // Keep it 'grabbing' if it was set to grab
+    } else {
+      slider.style.cursor = 'grab';
+    }
+  });
+});
+  </script>
 </body>
 </html>
