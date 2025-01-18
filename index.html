@@ -10,45 +10,37 @@
     /* General styles */
     body {
       font-family: 'Courier New', monospace;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
       background-image: url('./images/indiegroundblog_80sgrids_15.jpg.webp');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
-      color: #00FF00; /* Neon green text */
+      color: #00FF00;
       text-align: center;
     }
 
-    header h1, header p, .controls label {
+    h1, h2, .controls label, .number-picker-controls label {
       color: #00FF00;
-      margin: 1em 0; text-align: center; 
-      padding-top: 1em; 
-      text-shadow: 0 0 10px black, 0 0 10px black, 0 0 10px black;
-    }
-
-    header h1 {
-      font-size: 3rem;
       font-weight: normal;
-      margin-left: 20px;
-      margin-right: 20px;
-    }
-
-    header h2 {
-      font-size: 1rem;
-      font-weight: normal;
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 1em 1em;
       margin-top: 2em;
       margin-bottom: 2em;
       margin-left: 20px;
       margin-right: 20px;
-      display: inline-block;
-      border-radius: 12px; 
+      text-shadow: 0 0 10px black, 0 0 10px black, 0 0 10px black;
     }
 
-    /* Sliders section styling */
+    h1 {
+      font-size: 3rem;
+    }
+
+    h2 {
+      font-size: 1rem;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 1em 1em;
+      display: inline-block;
+      border-radius: 12px;
+    }
+
+    /* Sliders styling */
     .sliders {
       display: flex;
       justify-content: center;
@@ -60,7 +52,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-shadow: 0px 0px 10px black;
     }
 
     .controls label {
@@ -68,26 +59,24 @@
     }
 
     input[type="range"] {
-      -webkit-appearance: none; 
-      appearance: none; 
+      -webkit-appearance: none;
+      appearance: none;
       width: 200px;
       height: 8px;
       background-color: black;
       border: 1px solid #00FF00;
       border-radius: 4px;
       outline: none;
-      cursor: grab;
     }
 
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      appearance: none; 
+      appearance: none;
       width: 16px;
       height: 16px;
       background-color: #00FF00;
       border: 2px solid black;
       border-radius: 50%;
-      cursor: grab;
     }
 
     input[type="range"]::-moz-range-thumb {
@@ -96,10 +85,19 @@
       background-color: #00FF00;
       border: 2px solid black;
       border-radius: 50%;
-      cursor: grab;
     }
 
-    /* Grid container */
+     /* Resize handle styling */
+     .resize-handle {
+      width: 32px;
+      height: 32px;
+      background-color: black;
+      border-bottom-right-radius: 10px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+
     .grid-demo-container {
       display: flex;
       justify-content: center;
@@ -110,19 +108,21 @@
       margin-right: 20px;
     }
 
+    /* Third grid (responsive to viewport) */
     .grid-demo {
       display: grid;
       gap: 10px;
-      padding: 10px;      
+      padding: 10px;
       border: 2px solid #00FF00;
       background-color: black;
       border-radius: 12px;
-      width: 100%;
+      width: 90vw; /* Make it 90% of the viewport width */
       position: relative;
-      min-width: 400px;
+      min-width: 200px;
       min-height: 200px;
       grid-template-columns: repeat(4, 1fr);
       grid-template-rows: repeat(2, 1fr);
+      box-sizing: border-box; /* Ensure padding doesn't affect width */
     }
 
     .grid-item {
@@ -131,7 +131,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Courier New', monospace;
       font-size: 1.2rem;
       transition: transform 0.2s, background-color 0.2s;
       border: 2px solid #00FF00;
@@ -139,46 +138,74 @@
 
     .grid-item:hover {
       background-color: #00cc00;
-      transform: scale(1.1);
-    }
-
-    /* Resize handle */
-    .resize-handle {
-      width: 32px;
-      height: 32px;
-      background-color: black;
-      border-bottom-right-radius: 10px;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      cursor: se-resize;
-    }
-
-    /* Responsive grid */
-    .responsive-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      background-color: black;
-      border: 2px solid #00FF00;
-      border-radius: 12px;
+      transform: scale(1.05);
     }
 
     @media (max-width: 400px) {
       .responsive-grid {
         grid-template-columns: 1fr;
       }
+
+      .number-picker-controls {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        font-size: 1rem;
+        text-align: center;
+        border: 2px solid #00FF00;
+        border-radius: 50%;
+        background-color: black;
+        color: #00FF00;
+        outline: none;
+      }
+    }
+
+    .number-picker-controls input {
+      width: 60px;
+      font-size: 1rem;
+      text-align: center;
+      border: 1px solid #00FF00;
+      border-radius: 6px;
+      background-color: black;
+      color: #00FF00;
+      outline: none;
+      margin-bottom: 2em;
+      margin-top: 2em;
+    }
+
+    /* Code changes section */
+    .code-changes {
+      margin-top: 4em;
+      padding: 2em;
+      background-color: rgba(0, 0, 0, 0.8);
+      border-radius: 12px;
+      border: 2px solid #00FF00;
+      color: #00FF00;
+    }
+
+    .code-changes h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1em;
+    }
+
+    .code-changes pre {
+      background-color: #333;
+      padding: 1em;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
     }
 
   </style>
 </head>
 <body>
   <div class="container">
-    <header>
       <h1>Responsive Grids in Action</h1>
-        <h2>
+      <h2>
         Use the controls below to re-size this grid <br> and start exploring the magic of CSS grids.
       </h2>
-    </header>
     <div class="sliders">
       <div class="controls">
         <label for="screen-width">Width:</label>
@@ -204,11 +231,9 @@
       </div>
     </div>
 
-    <header>
       <h2>
       The next grid can be re-sized using the handle <br> at its bottom right-hand corner.
       </h2>
-    </header>
 
     <!-- Second Grid (resizable via resize handle) -->
     <div class="grid-demo-container">
@@ -227,13 +252,11 @@
     </div>
 
     <!-- Text explaining the responsive grid -->
-    <header>
       <h2>
         This grid responds to the size of your viewport. <br> Try changing your browser window size to see how it works.
       </h2>
-    </header>
 
-    <!-- Container for the responsive grid -->
+    <!-- Third grid (responsive to viewport) -->
     <div class="grid-demo-container">
       <div class="grid-demo responsive-grid">
         <div class="grid-item">1</div>
@@ -247,78 +270,133 @@
       </div>
     </div>
 
+     <!-- Text explaining the number pickers -->
+      <h2>
+        This grid allows you to determine the<br> number of rows and columns using the number pickers.
+      </h2>
+
+    <!-- Fourth grid (Number Pickers) -->
+    <div class="grid-demo-container">
+      <section class="number-picker-section">
+        <div class="number-picker-controls">
+          <label for="num-columns">Columns:</label>
+          <input type="number" id="num-columns" min="1" max="8" value="4">
+          <label for="num-rows">Rows:</label>
+          <input type="number" id="num-rows" min="1" max="8" value="2">
+        </div>
+        <div class="grid-demo grid-demo-number-picker" id="grid-number-picker">
+          <!-- Grid items will be generated dynamically -->
+        </div>
+      </section>
+    </div>
+
+    <!-- Code changes section -->
+    <div class="code-changes">
+      <h3>Most recent changes to the Grid Code:</h3>
+      <pre id="code-output">No changes yet.</pre>
+    </div>
+
   </div>
 
   <script>
-  const widthSlider = document.getElementById('screen-width');
-const heightSlider = document.getElementById('screen-height');
-const gridContainer1 = document.getElementById('grid-container-1');
-const gridContainer2 = document.getElementById('grid-container-2');
-const resizeHandle2 = document.getElementById('resize-handle-2');
+    const widthSlider = document.getElementById('screen-width');
+    const heightSlider = document.getElementById('screen-height');
+    const gridContainer1 = document.getElementById('grid-container-1');
+    const gridContainer2 = document.getElementById('grid-container-2');
+    const resizeHandle2 = document.getElementById('resize-handle-2');
+    const codeOutput = document.getElementById('code-output');
+    let isResizing2 = false;
 
-let isResizing2 = false;
-
-// Update grid dimensions dynamically via sliders (First grid only)
-function updateGridDimensions() {
-  const width = widthSlider.value;
-  const height = heightSlider.value;
-
-  gridContainer1.style.width = `${width}px`;
-  gridContainer1.style.height = `${height}px`;
+    // Update grid dimensions dynamically via sliders (First grid only)
+    function updateGridDimensions() {
+      const width = widthSlider.value;
+      const height = heightSlider.value;
+      gridContainer1.style.width = `${width}px`;
+      gridContainer1.style.height = `${height}px`;
+      codeOutput.textContent = `
+Updated grid dimensions based on slider input:
+#grid-container-1 {
+  width: ${width}px;
+  height: ${height}px;
 }
-
-// Initialize and update on slider change
-[widthSlider, heightSlider].forEach(slider => slider.addEventListener('input', updateGridDimensions));
-updateGridDimensions();
-
-// Enable resizing of the second grid container via the resize handle
-resizeHandle2.addEventListener('mousedown', (e) => {
-  isResizing2 = true;
-  document.body.style.cursor = 'se-resize';
-});
-
-// Handle resizing of the second grid on mousemove
-document.addEventListener('mousemove', (e) => {
-  if (isResizing2) {
-    const newWidth = e.clientX - gridContainer2.getBoundingClientRect().left;
-    const newHeight = e.clientY - gridContainer2.getBoundingClientRect().top;
-
-    // Ensure the second grid doesn't get smaller than the minimum size
-    const minWidth = 400; 
-    const minHeight = 200;
-    gridContainer2.style.width = `${Math.max(newWidth, minWidth)}px`;
-    gridContainer2.style.height = `${Math.max(newHeight, minHeight)}px`;
-  }
-});
-
-document.addEventListener('mouseup', () => {
-  isResizing2 = false;
-  document.body.style.cursor = 'default';
-});
-
-// Implement grabbing cursor for the sliders
-[widthSlider, heightSlider].forEach(slider => {
-  slider.addEventListener('mousedown', () => {
-    // Ensure the cursor switches immediately to 'grabbing' on mousedown
-    document.body.style.cursor = 'grabbing';
-    slider.style.cursor = 'grabbing';  // Also target the slider directly to override thumb state
-  });
-
-  slider.addEventListener('mouseup', () => {
-    // Revert to 'grab' once mouse is released
-    document.body.style.cursor = 'grab';
-    slider.style.cursor = 'grab';  // Revert the cursor back for the slider
-  });
-
-  // Prevent the cursor from resetting back on slider thumb hover
-  slider.addEventListener('mouseenter', () => {
-    if (slider.style.cursor === 'grabbing') {
-      slider.style.cursor = 'grabbing'; // Keep it 'grabbing' if it was set to grab
-    } else {
-      slider.style.cursor = 'grab';
+      `;
     }
-  });
-});
+
+    // Initialize and attach event listeners for the sliders
+    widthSlider.addEventListener('input', updateGridDimensions);
+    heightSlider.addEventListener('input', updateGridDimensions);
+
+    // Initialize grid dimensions
+    updateGridDimensions();
+
+    // Function to handle resizing the second grid with the resize handle
+    function initResizeHandle() {
+      resizeHandle2.addEventListener('mousedown', (e) => {
+        isResizing2 = true;
+        document.addEventListener('mousemove', handleResize);
+        document.addEventListener('mouseup', () => {
+          isResizing2 = false;
+          document.removeEventListener('mousemove', handleResize);
+        });
+      });
+    }
+
+    // Resize function
+    function handleResize(e) {
+      if (isResizing2) {
+        const gridRect = gridContainer2.getBoundingClientRect();
+        const newWidth = e.clientX - gridRect.left;
+        const newHeight = e.clientY - gridRect.top;
+        gridContainer2.style.width = `${newWidth}px`;
+        gridContainer2.style.height = `${newHeight}px`;
+        codeOutput.textContent = `
+Updated grid dimensions after using resize handle:
+#grid-container-2 {
+  width: ${newWidth}px;
+  height: ${newHeight}px;
+}
+        `;
+      }
+    }
+
+    // Initialize resize handle functionality
+    initResizeHandle();
+
+    // Dynamically generate the grid items based on column and row values
+    const numColumnsInput = document.getElementById('num-columns');
+    const numRowsInput = document.getElementById('num-rows');
+    const gridNumberPicker = document.getElementById('grid-number-picker');
+
+    function generateGrid() {
+      const numColumns = numColumnsInput.value;
+      const numRows = numRowsInput.value;
+      gridNumberPicker.innerHTML = ''; // Clear current grid
+
+      for (let i = 1; i <= numColumns * numRows; i++) {
+        const item = document.createElement('div');
+        item.classList.add('grid-item');
+        item.textContent = i;
+        gridNumberPicker.appendChild(item);
+      }
+
+      // Adjust the CSS grid template based on input values
+      gridNumberPicker.style.gridTemplateColumns = `repeat(${numColumns}, 1fr)`;
+      gridNumberPicker.style.gridTemplateRows = `repeat(${numRows}, 1fr)`;
+      codeOutput.textContent = `
+      Updated grid dimensions based on number picker input:
+#grid-number-picker {
+  grid-template-columns: repeat(${numColumns}, 1fr);
+  grid-template-rows: repeat(${numRows}, 1fr);
+}
+      `;
+    }
+
+    // Update grid when number inputs change
+    numColumnsInput.addEventListener('input', generateGrid);
+    numRowsInput.addEventListener('input', generateGrid);
+
+    // Initial grid generation
+    generateGrid();
   </script>
 </body>
 </html>
