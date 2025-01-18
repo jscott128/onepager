@@ -40,12 +40,12 @@
       border-radius: 12px;
     }
 
-    /* Sliders styling */
+    /* Slider styling */
     .sliders {
       display: flex;
       justify-content: center;
       gap: 20px;
-      margin-bottom: 3em;
+      margin-bottom: 2em;
     }
 
     .controls {
@@ -98,6 +98,7 @@
       right: 0;
     }
 
+    /* Grid styling */
     .grid-demo-container {
       display: flex;
       justify-content: center;
@@ -108,7 +109,6 @@
       margin-right: 20px;
     }
 
-    /* Third grid (responsive to viewport) */
     .grid-demo {
       display: grid;
       gap: 10px;
@@ -116,7 +116,7 @@
       border: 2px solid #00FF00;
       background-color: black;
       border-radius: 12px;
-      width: 90vw; /* Make it 90% of the viewport width */
+      width: 90vw; /* 90% of the viewport width */
       position: relative;
       min-width: 200px;
       min-height: 200px;
@@ -149,7 +149,7 @@
       .number-picker-controls {
         display: flex;
         justify-content: center;
-        gap: 40px;
+        gap: 1em;
         font-size: 1rem;
         text-align: center;
         border: 2px solid #00FF00;
@@ -174,38 +174,60 @@
     }
 
     /* Code changes section */
+
+    .code-changes-container {
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
     .code-changes {
-      margin-top: 4em;
       padding: 2em;
+      font-family: 'Courier New', monospace;
+      font-weight: normal;
+      font-size: 1rem;
       background-color: rgba(0, 0, 0, 0.8);
       border-radius: 12px;
       border: 2px solid #00FF00;
       color: #00FF00;
+      position: relative;
+      margin-top: 2em;
+      margin-bottom: 2em;
     }
 
     .code-changes h3 {
-      font-size: 1.5rem;
+      font-family: 'Courier New', monospace;
+      font-weight: normal;
+      font-size: 1rem;
       margin-bottom: 1em;
     }
 
     .code-changes pre {
       background-color: #333;
       padding: 1em;
+      margin-left: 2em;
+      margin-right: 2em;
       border-radius: 8px;
-      font-size: 0.9rem;
+      font-weight: normal;
+      font-size: 1rem;
       overflow-x: auto;
-      white-space: pre-wrap;
-      word-wrap: break-word;
+      font-family: 'Courier New', monospace;
+      font-weight: normal;
+      font-size: 1rem;
     }
 
   </style>
 </head>
+
 <body>
   <div class="container">
       <h1>Responsive Grids in Action</h1>
+       <!-- Text explaining first grid -->
       <h2>
         Use the controls below to re-size this grid <br> and start exploring the magic of CSS grids.
       </h2>
+      <!-- div means division, a block-level element in HTML used to group toghether elements -->
     <div class="sliders">
       <div class="controls">
         <label for="screen-width">Width:</label>
@@ -231,6 +253,7 @@
       </div>
     </div>
 
+    <!-- Text explaining second grid -->
       <h2>
       The next grid can be re-sized using the handle <br> at its bottom right-hand corner.
       </h2>
@@ -251,7 +274,7 @@
       </div>
     </div>
 
-    <!-- Text explaining the responsive grid -->
+    <!-- Text explaining third grid -->
       <h2>
         This grid responds to the size of your viewport. <br> Try changing your browser window size to see how it works.
       </h2>
@@ -270,7 +293,7 @@
       </div>
     </div>
 
-     <!-- Text explaining the number pickers -->
+     <!-- Text explaining the fourth grid -->
       <h2>
         This grid allows you to determine the<br> number of rows and columns using the number pickers.
       </h2>
@@ -299,103 +322,132 @@
   </div>
 
   <script>
+    // 'const' denotes constant variables (not to be reassigned).
+    // 'document.getElementById()' is a method that returns the HTML element with the specified ID.
     const widthSlider = document.getElementById('screen-width');
     const heightSlider = document.getElementById('screen-height');
     const gridContainer1 = document.getElementById('grid-container-1');
     const gridContainer2 = document.getElementById('grid-container-2');
     const resizeHandle2 = document.getElementById('resize-handle-2');
     const codeOutput = document.getElementById('code-output');
+    
+    // 'let' is used to declare variables that can be reassigned later.
+    // 'isResizing2' tracks whether the second grid is currently being resized.
     let isResizing2 = false;
-
-    // Update grid dimensions dynamically via sliders (First grid only)
+  
+    // Function to update grid dimensions dynamically via sliders (First grid only)
     function updateGridDimensions() {
+      // Get the current values of the width and height sliders
       const width = widthSlider.value;
       const height = heightSlider.value;
+      
+      // Apply the new width and height values to the first grid container
       gridContainer1.style.width = `${width}px`;
       gridContainer1.style.height = `${height}px`;
+  
+      // Update the displayed CSS code for the grid container in the output area
       codeOutput.textContent = `
-Updated grid dimensions based on slider input:
+Slider input:
+ 
 #grid-container-1 {
-  width: ${width}px;
-  height: ${height}px;
-}
-      `;
+width: ${width}px;
+height: ${height}px;
+}`;
     }
-
-    // Initialize and attach event listeners for the sliders
+  
+    // Initialize and attach event listeners for the sliders.
+    // 'addEventListener()' listens for specific events, in this case, 'input' events.
     widthSlider.addEventListener('input', updateGridDimensions);
     heightSlider.addEventListener('input', updateGridDimensions);
-
-    // Initialize grid dimensions
-    updateGridDimensions();
-
+  
     // Function to handle resizing the second grid with the resize handle
     function initResizeHandle() {
+      // Add a 'mousedown' event listener to the resize handle for starting the resizing process.
       resizeHandle2.addEventListener('mousedown', (e) => {
+        // Set the resizing flag to true when the mouse button is pressed.
         isResizing2 = true;
+        
+        // Add 'mousemove' and 'mouseup' listeners to document to track resizing and end the resizing.
         document.addEventListener('mousemove', handleResize);
         document.addEventListener('mouseup', () => {
+          // Stop resizing when the mouse button is released.
           isResizing2 = false;
           document.removeEventListener('mousemove', handleResize);
         });
       });
     }
-
-    // Resize function
+  
+    // Function that handles the resizing of the second grid.
     function handleResize(e) {
+      // Only proceed if resizing is active.
       if (isResizing2) {
+        // Get the current dimensions of the second grid container.
         const gridRect = gridContainer2.getBoundingClientRect();
+        
+        // Calculate the new width and height based on mouse position.
         const newWidth = e.clientX - gridRect.left;
         const newHeight = e.clientY - gridRect.top;
+        
+        // Apply the new dimensions to the second grid container.
         gridContainer2.style.width = `${newWidth}px`;
         gridContainer2.style.height = `${newHeight}px`;
+  
+        // Update the displayed CSS code for the second grid container.
         codeOutput.textContent = `
-Updated grid dimensions after using resize handle:
+Resize handle:
+ 
 #grid-container-2 {
-  width: ${newWidth}px;
-  height: ${newHeight}px;
+width: ${newWidth}px;
+height: ${newHeight}px;
 }
         `;
       }
     }
-
-    // Initialize resize handle functionality
+  
+    // Initialize the resize handle functionality by calling the function.
     initResizeHandle();
-
-    // Dynamically generate the grid items based on column and row values
+  
+    // Generate grid items in number picker grid based user input.
     const numColumnsInput = document.getElementById('num-columns');
     const numRowsInput = document.getElementById('num-rows');
     const gridNumberPicker = document.getElementById('grid-number-picker');
-
+  
+    // Function to generate grid items dynamically based on user input.
     function generateGrid() {
+      // Get the current values for the number of columns and rows.
       const numColumns = numColumnsInput.value;
       const numRows = numRowsInput.value;
-      gridNumberPicker.innerHTML = ''; // Clear current grid
-
+  
+      // Clear the current grid items/refresh with each user input.
+      gridNumberPicker.innerHTML = '';
+  
+      // Create new grid items based on the total number of cells (columns * rows).
       for (let i = 1; i <= numColumns * numRows; i++) {
         const item = document.createElement('div');
-        item.classList.add('grid-item');
-        item.textContent = i;
-        gridNumberPicker.appendChild(item);
+        item.classList.add('grid-item'); // Add a CSS class for styling.
+        item.textContent = i; // Set the grid item number.
+        gridNumberPicker.appendChild(item); // Add the grid item to the container.
       }
-
-      // Adjust the CSS grid template based on input values
+  
+      // Adjust the CSS grid template to match the number of columns and rows.
       gridNumberPicker.style.gridTemplateColumns = `repeat(${numColumns}, 1fr)`;
       gridNumberPicker.style.gridTemplateRows = `repeat(${numRows}, 1fr)`;
+  
+      // Update the displayed CSS code for the grid layout.
       codeOutput.textContent = `
-      Updated grid dimensions based on number picker input:
+Number picker input:
+ 
 #grid-number-picker {
-  grid-template-columns: repeat(${numColumns}, 1fr);
-  grid-template-rows: repeat(${numRows}, 1fr);
-}
-      `;
+grid-template-columns: repeat(${numColumns}, 1fr);
+grid-template-rows: repeat(${numRows}, 1fr);
+}`;
     }
-
-    // Update grid when number inputs change
+  
+    // Attach event listeners to the number of columns and rows inputs to update the grid dynamically.
     numColumnsInput.addEventListener('input', generateGrid);
     numRowsInput.addEventListener('input', generateGrid);
-
-    // Initial grid generation
+  
+    // Initialize the grid by calling the function to generate the grid.
     generateGrid();
   </script>
 </body>
