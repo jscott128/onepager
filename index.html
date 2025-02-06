@@ -18,7 +18,7 @@
       text-align: center;
     }
 
-    h1, h2, .controls label, .number-picker-controls label {
+    h1, h2, h4 .controls label, .number-picker-controls label {
       color: #00FF00;
       font-weight: normal;
       margin-top: 2em;
@@ -39,6 +39,23 @@
       display: inline-block;
       border-radius: 12px;
     }
+
+    h4 {
+  font-size: 1rem;
+  background-color: rgba(0, 0, 0, 1);
+  padding: 1em 1em;
+  border-radius: 12px;
+  text-align: justify;
+  font-weight: normal;
+  width: auto
+}
+
+h4 span {
+  display: block;    /* Makes the text behave like a block inside */
+  max-width: 60%;    /* Restricts text width */
+  margin: 0 auto;    /* Centers the text within the background */
+  border-radius: 12px;
+}
 
     /* Slider styling */
     .sliders {
@@ -223,9 +240,17 @@
 <body>
   <div class="container">
       <h1>Responsive Grids in Action</h1>
+      <!-- intro text -->
+      <h4><span>
+        <p>CSS Grid and Flexbox are a fundamental part of modern web design, allowing layouts to adapt dynamically to user demands.</p>
+        <p>Responsive grids give developers control over responsive layouts without having to rely on external frameworks like Bootstrap. 
+          <p>They use relative units (%, fr, em) and media queries to adjust content dynamically, ensuring usability and scalability across different screen sizes and devices.</p>
+        <p>
+        Have a look at the examples below to see responsive grids in action!</p>
+      </span></h4>
        <!-- Text explaining first grid -->
       <h2>
-        Use the controls below to re-size this grid <br> and start exploring the magic of CSS grids.
+        Use the controls below to re-size this grid <br> and start exploring the magic of grids.
       </h2>
       <!-- div means division, a block-level element in HTML used to group toghether elements -->
     <div class="sliders">
@@ -276,7 +301,7 @@
 
     <!-- Text explaining third grid -->
       <h2>
-        This grid responds to the size of your viewport. <br> Try changing your browser window size to see how it works.
+        This grid only responds to the size of your viewport. <br> Try changing your browser window size to see how it works.
       </h2>
 
     <!-- Third grid (responsive to viewport) -->
