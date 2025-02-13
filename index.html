@@ -40,7 +40,7 @@
       border-radius: 12px;
     }
 
-    intro {
+    .intro {
       background-color: rgba(0, 0, 0, 1); 
   color: #00FF00; /* Neon green text */
   font-family: 'Courier New', monospace;
@@ -54,7 +54,7 @@
   align-items: center; /* Center-align child elements horizontally */
 }
 
-intro p {
+.intro p {
   margin: 0.5em 0;
   font-size: 1rem;
   padding: 0.5em 0.5em;
@@ -281,12 +281,12 @@ footer a:hover {
 <body>
       <h1>Responsive Grids in Action</h1>
       <!-- intro text -->
-      <intro>
-          <p>CSS Grids are a fundamental part of modern web design, allowing layouts to adapt dynamically to user demands.</p>
-          <p>These responsive grids give developers control over responsive layouts without having to rely on external frameworks like Bootstrap.</p>
-          <p>They use relative units (%, fr, em) and media queries to adjust content dynamically, ensuring usability and scalability across different screen sizes and devices.</p>
-          <p>Have a look at the examples below to see them in action!</p>
-      </intro>
+      <div class="intro">
+        <p>CSS Grids are a fundamental part of modern web design, allowing layouts to adapt dynamically to user demands.</p>
+        <p>These responsive grids give developers control over responsive layouts without having to rely on external frameworks like Bootstrap.</p>
+        <p>They use relative units (%, fr, em) and media queries to adjust content dynamically, ensuring usability and scalability across different screen sizes and devices.</p>
+        <p>Have a look at the examples below to see them in action!</p>
+      </div>
        <!-- Text explaining first grid -->
       <h2>
         Use the controls below to re-size this grid <br> and start exploring the magic of grids.
