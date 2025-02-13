@@ -16,7 +16,6 @@
       background-attachment: fixed;
       color: #00FF00;
       text-align: center;
-      font-size: 1rem;
     }
 
     h1, h2, .controls label, .number-picker-controls label {
@@ -40,6 +39,20 @@
       display: inline-block;
       border-radius: 12px;
     }
+
+    .intro {
+  font-size: 1rem;
+  background-color: rgba(0, 0, 0, 1);
+  padding: 1em 1em;
+  border-radius: 12px;
+  text-align: justify;
+  font-weight: normal;
+  display: block;
+  max-width: 60%;
+  margin: 0 auto;
+  max-width: 60%; /* Restricts text width */
+  width: 100%; /* Ensure paragraphs take up full width of their container */
+}
 
 /* Footer styles */
 footer {
@@ -260,10 +273,12 @@ footer a:hover {
   <div class="container">
       <h1>Responsive Grids in Action</h1>
       <!-- intro text -->
+      <intro>
           <p>CSS Grids are a fundamental part of modern web design, allowing layouts to adapt dynamically to user demands.</p>
           <p>These responsive grids give developers control over responsive layouts without having to rely on external frameworks like Bootstrap.</p>
           <p>They use relative units (%, fr, em) and media queries to adjust content dynamically, ensuring usability and scalability across different screen sizes and devices.</p>
           <p>Have a look at the examples below to see them in action!</p>
+      </intro>
        <!-- Text explaining first grid -->
       <h2>
         Use the controls below to re-size this grid <br> and start exploring the magic of grids.
