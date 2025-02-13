@@ -57,6 +57,41 @@ h4 span {
   border-radius: 12px;
 }
 
+/* Footer styles */
+footer {
+  background-color: rgba(0, 0, 0, 1); 
+  color: #00FF00; /* Neon green text */
+  font-family: 'Courier New', monospace;
+  text-align: center; /* Center-align the footer content */
+  padding: 1em;
+  margin-top: 4em;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center-align child elements horizontally */
+}
+
+footer p {
+  margin: 0.5em 0;
+  font-size: .8rem;
+  padding: 0.5em 0.5em;
+  max-width: 60%; /* Restricts text width */
+  text-align: justify; /* Justify the text within the paragraphs */
+  width: 100%; /* Ensure paragraphs take up full width of their container */
+}
+
+footer a {
+  color: #00FF00; /* Neon green links */
+  text-decoration: none;
+  border-bottom: 1px dashed #00FF00; /* Dashed underline for links */
+  transition: color 0.2s, border-bottom 0.2s;
+}
+
+footer a:hover {
+  color: #00cc00; /* Darker green on hover */
+  border-bottom: 1px solid #00cc00; /* Solid underline on hover */
+}
+
     /* Slider styling */
     .sliders {
       display: flex;
@@ -242,11 +277,11 @@ h4 span {
       <h1>Responsive Grids in Action</h1>
       <!-- intro text -->
       <h4><span>
-        <p>CSS Grid and Flexbox are a fundamental part of modern web design, allowing layouts to adapt dynamically to user demands.</p>
-        <p>Responsive grids give developers control over responsive layouts without having to rely on external frameworks like Bootstrap. 
+        <p>CSS Grids are a fundamental part of modern web design, allowing layouts to adapt dynamically to user demands.</p>
+        <p>These responsive grids give developers control over responsive layouts without having to rely on external frameworks like Bootstrap. 
           <p>They use relative units (%, fr, em) and media queries to adjust content dynamically, ensuring usability and scalability across different screen sizes and devices.</p>
         <p>
-        Have a look at the examples below to see responsive grids in action!</p>
+        Have a look at the examples below to see them in action!</p>
       </span></h4>
        <!-- Text explaining first grid -->
       <h2>
@@ -344,135 +379,167 @@ h4 span {
       <pre id="code-output">No changes yet.</pre>
     </div>
 
+    <footer>
+      <p>
+        This page was created by Julian Scott (with help from ChatGPT) during the winter term 2024/25 in the Interactive Information course of the Interface Design program at the University of Applied Sciences Potsdam.
+      </p>
+      <p>
+        The background was borrowed from Indiegrounds.net and can be found <a href="https://indieground.net/blog/80s-grid-history/" target="_blank">here</a>.
+      </p>
+      <p>Thanks for looking!</p>
+    </footer>
+
   </div>
 
   <script>
-    // 'const' denotes constant variables (not to be reassigned).
-    // 'document.getElementById()' is a method that returns the HTML element with the specified ID.
+    // Existing variable declarations
     const widthSlider = document.getElementById('screen-width');
     const heightSlider = document.getElementById('screen-height');
     const gridContainer1 = document.getElementById('grid-container-1');
     const gridContainer2 = document.getElementById('grid-container-2');
     const resizeHandle2 = document.getElementById('resize-handle-2');
     const codeOutput = document.getElementById('code-output');
-    
-    // 'let' is used to declare variables that can be reassigned later.
-    // 'isResizing2' tracks whether the second grid is currently being resized.
     let isResizing2 = false;
   
-    // Function to update grid dimensions dynamically via sliders (First grid only)
+    // Function to update the HTML code display with proper formatting
+    function updateHTMLCode(gridId) {
+      const gridElement = document.getElementById(gridId);
+      const gridHTML = gridElement.innerHTML
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\n/g, '')
+        .replace(/ {2}/g, '&nbsp;&nbsp;');
+  
+      const formattedHTML = gridHTML
+        .replace(/&lt;/g, '<br>&nbsp;&nbsp;&lt;')
+        .replace(/&gt;&lt;/g, '&gt;<br>&nbsp;&nbsp;&lt;')
+        .replace(/&gt;/g, '&gt;<br>');
+  
+      return `
+  HTML changes:
+  
+  &lt;div id="${gridId}" class="grid-demo"&gt;<br>
+  ${formattedHTML}
+  &lt;/div&gt;
+      `;
+    }
+  
+    // Function to update both CSS and HTML code displays (clears previous content)
+    function updateCodeDisplay(cssChanges, gridId) {
+      // Clear the previous content
+      codeOutput.innerHTML = '';
+  
+      // Get the updated HTML changes
+      const htmlChanges = updateHTMLCode(gridId);
+  
+      // Display the new changes
+      codeOutput.innerHTML = `
+  ${cssChanges}
+  
+  ${htmlChanges}
+      `;
+    }
+  
+    // Update grid dimensions (First grid)
     function updateGridDimensions() {
-      // Get the current values of the width and height sliders
       const width = widthSlider.value;
       const height = heightSlider.value;
-      
-      // Apply the new width and height values to the first grid container
+  
       gridContainer1.style.width = `${width}px`;
       gridContainer1.style.height = `${height}px`;
   
-      // Update the displayed CSS code for the grid container in the output area
-      codeOutput.textContent = `
-Slider input:
- 
-#grid-container-1 {
-width: ${width}px;
-height: ${height}px;
-}`;
+      const cssChanges = `
+  Slider input CSS changes:
+  
+  #grid-container-1 {
+    width: ${width}px;
+    height: ${height}px;
+  }
+      `;
+  
+      updateCodeDisplay(cssChanges, 'grid-container-1');
     }
   
-    // Initialize and attach event listeners for the sliders.
-    // 'addEventListener()' listens for specific events, in this case, 'input' events.
+    // Initialize and attach event listeners for the sliders
     widthSlider.addEventListener('input', updateGridDimensions);
     heightSlider.addEventListener('input', updateGridDimensions);
   
     // Function to handle resizing the second grid with the resize handle
     function initResizeHandle() {
-      // Add a 'mousedown' event listener to the resize handle for starting the resizing process.
       resizeHandle2.addEventListener('mousedown', (e) => {
-        // Set the resizing flag to true when the mouse button is pressed.
         isResizing2 = true;
-        
-        // Add 'mousemove' and 'mouseup' listeners to document to track resizing and end the resizing.
         document.addEventListener('mousemove', handleResize);
         document.addEventListener('mouseup', () => {
-          // Stop resizing when the mouse button is released.
           isResizing2 = false;
           document.removeEventListener('mousemove', handleResize);
         });
       });
     }
   
-    // Function that handles the resizing of the second grid.
+    // Function that handles the resizing of the second grid
     function handleResize(e) {
-      // Only proceed if resizing is active.
       if (isResizing2) {
-        // Get the current dimensions of the second grid container.
         const gridRect = gridContainer2.getBoundingClientRect();
-        
-        // Calculate the new width and height based on mouse position.
         const newWidth = e.clientX - gridRect.left;
         const newHeight = e.clientY - gridRect.top;
-        
-        // Apply the new dimensions to the second grid container.
+  
         gridContainer2.style.width = `${newWidth}px`;
         gridContainer2.style.height = `${newHeight}px`;
   
-        // Update the displayed CSS code for the second grid container.
-        codeOutput.textContent = `
-Resize handle:
- 
-#grid-container-2 {
-width: ${newWidth}px;
-height: ${newHeight}px;
-}
+        const cssChanges = `
+  Resize handle CSS changes:
+  
+  #grid-container-2 {
+    width: ${newWidth}px;
+    height: ${newHeight}px;
+  }
         `;
+  
+        updateCodeDisplay(cssChanges, 'grid-container-2');
       }
     }
   
-    // Initialize the resize handle functionality by calling the function.
+    // Initialize the resize handle functionality
     initResizeHandle();
   
-    // Generate grid items in number picker grid based user input.
+    // Generate grid items in number picker grid based on user input
     const numColumnsInput = document.getElementById('num-columns');
     const numRowsInput = document.getElementById('num-rows');
     const gridNumberPicker = document.getElementById('grid-number-picker');
   
-    // Function to generate grid items dynamically based on user input.
     function generateGrid() {
-      // Get the current values for the number of columns and rows.
       const numColumns = numColumnsInput.value;
       const numRows = numRowsInput.value;
   
-      // Clear the current grid items/refresh with each user input.
       gridNumberPicker.innerHTML = '';
   
-      // Create new grid items based on the total number of cells (columns * rows).
       for (let i = 1; i <= numColumns * numRows; i++) {
         const item = document.createElement('div');
-        item.classList.add('grid-item'); // Add a CSS class for styling.
-        item.textContent = i; // Set the grid item number.
-        gridNumberPicker.appendChild(item); // Add the grid item to the container.
+        item.classList.add('grid-item');
+        item.textContent = i;
+        gridNumberPicker.appendChild(item);
       }
   
-      // Adjust the CSS grid template to match the number of columns and rows.
       gridNumberPicker.style.gridTemplateColumns = `repeat(${numColumns}, 1fr)`;
       gridNumberPicker.style.gridTemplateRows = `repeat(${numRows}, 1fr)`;
   
-      // Update the displayed CSS code for the grid layout.
-      codeOutput.textContent = `
-Number picker input:
- 
-#grid-number-picker {
-grid-template-columns: repeat(${numColumns}, 1fr);
-grid-template-rows: repeat(${numRows}, 1fr);
-}`;
+      const cssChanges = `
+  Number picker input CSS changes:
+  
+  #grid-number-picker {
+    grid-template-columns: repeat(${numColumns}, 1fr);
+    grid-template-rows: repeat(${numRows}, 1fr);
+  }
+      `;
+  
+      updateCodeDisplay(cssChanges, 'grid-number-picker');
     }
   
-    // Attach event listeners to the number of columns and rows inputs to update the grid dynamically.
+    // Attach event listeners to the number of columns and rows inputs
     numColumnsInput.addEventListener('input', generateGrid);
     numRowsInput.addEventListener('input', generateGrid);
   
-    // Initialize the grid by calling the function to generate the grid.
+    // Initialize the grid
     generateGrid();
   </script>
 </body>
